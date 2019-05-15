@@ -3,6 +3,7 @@
 namespace Matthewbdaly\LaravelGoldenMasterTests;
 
 use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
+use Tests\CreatesApplication;
 
 /**
  * Golden master test case
