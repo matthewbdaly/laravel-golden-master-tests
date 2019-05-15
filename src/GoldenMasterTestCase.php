@@ -2,7 +2,9 @@
 
 namespace Matthewbdaly\LaravelGoldenMasterTests;
 
-class GoldenMasterTestCase extends BrowserTestCase
+use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
+
+class GoldenMasterTestCase extends BaseTestCase
 {
     use CreatesApplication;
 
