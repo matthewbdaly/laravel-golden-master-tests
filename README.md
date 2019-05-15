@@ -6,7 +6,7 @@ Installation
 ------------
 
 ```bash
-$ composer require matthewbdaly/laravel-golden-master-tests
+$ composer require --dev matthewbdaly/laravel-golden-master-tests
 ```
 
 Usage
