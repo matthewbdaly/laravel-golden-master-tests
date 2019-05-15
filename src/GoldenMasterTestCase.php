@@ -4,6 +4,9 @@ namespace Matthewbdaly\LaravelGoldenMasterTests;
 
 use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
 
+/**
+ * Golden master test case
+ */
 class GoldenMasterTestCase extends BaseTestCase
 {
     use CreatesApplication;
@@ -16,6 +19,12 @@ class GoldenMasterTestCase extends BaseTestCase
 
     protected $path;
 
+    /**
+     * Go to page
+     *
+     * @param string $path Path to visit.
+     * @return GoldenMasterTestCase
+     */
     public function goto($path)
     {
         $this->path = $path;
@@ -24,6 +33,11 @@ class GoldenMasterTestCase extends BaseTestCase
         return $this;
     }
 
+    /**
+     * Save HTML
+     *
+     * @return GoldenMasterTestCase
+     */
     public function saveHtml()
     {
         if (!$this->snapshotExists()) {
@@ -32,6 +46,11 @@ class GoldenMasterTestCase extends BaseTestCase
         return $this;
     }
 
+    /**
+     * Check snapshots match
+     *
+     * @return void
+     */
     public function assertSnapshotsMatch()
     {
         $path = $this->getPath();
@@ -45,37 +64,73 @@ class GoldenMasterTestCase extends BaseTestCase
         self::assertThat($newHtml == $oldHtml, self::isTrue(), $message);
     }
 
+    /**
+     * Get HTML content
+     *
+     * @return string
+     */
     protected function getHtml()
     {
         return $this->response->getContent();
     }
 
+    /**
+     * Get path
+     *
+     * @return string
+     */
     protected function getPath()
     {
         return $this->path;
     }
 
+    /**
+     * Get escaped path
+     *
+     * @return string
+     */
     protected function getEscapedPath()
     {
         return $this->snapshotDir.str_replace('/', '_', $this->getPath()).'.snap';
     }
 
+    /**
+     * Does snapshot exist?
+     *
+     * @return boolean
+     */
     protected function snapshotExists()
     {
         return file_exists($this->getEscapedPath());
     }
 
+    /**
+     * Process HTML
+     *
+     * @param string $html HTML to process.
+     * @return string
+     */
     protected function processHtml($html)
     {
         return preg_replace('/(<input type="hidden"[^>]+\>|<meta name="csrf-token" content="([a-zA-Z0-9]+)">)/i', '', $html);
     }
 
+    /**
+     * Save snapshot
+     *
+     * @return void
+     */
     protected function saveSnapshot()
     {
         $html = $this->processHtml($this->getHtml());
         file_put_contents($this->getEscapedPath(), $html);
     }
 
+    /**
+     * Get old HTML
+     *
+     * @return string
+     */
     protected function getOldHtml()
     {
         return file_get_contents($this->getEscapedPath());
