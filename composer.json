@@ -4,7 +4,7 @@
     "type": "library",
     "keywords": ["laravel","lumen"],
     "require": {
-        "laravel/browser-kit-testing": "^5.1"
+        "laravel/browser-kit-testing": "*"
     },
     "license": "MIT",
     "authors": [
